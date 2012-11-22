@@ -43,7 +43,7 @@ def process_jsonrpc(db_name = 'bitcoin-wallet')
   puts " data => #{data.inspect}"
     
   begin
-    result = {'result' => wallet(db_name).send(data['method'], *data['params'])}
+    result = {'result' => wallet(db_name).send(data['method'], *data['params']), "error" => nil }
   rescue ArgumentError
     result = {"code" => -1, "message" => "Wrong number of arguments"}
   end
@@ -57,7 +57,7 @@ def tmp_dir
 end
 
 def ensure_tmp
-  `mkdir #{tmp_dir}` unless Dir.exists?(tmp_dir)
+  `mkdir #{tmp_dir}` unless File.exists?(tmp_dir)
 end
 
 def wallet(name)
