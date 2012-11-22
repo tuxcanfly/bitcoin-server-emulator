@@ -14,7 +14,7 @@ class Wallet
     t_ensure_account("")
   end
   
-  def getbalance(account_name = nil)
+  def getbalance(account_name = nil, minconf = 1)
     if account_name
       t_accounts[account_name] ? t_accounts[account_name].balance : bg(0)
     else
@@ -22,7 +22,7 @@ class Wallet
     end
   end
   
-  def listaccounts
+  def listaccounts(minconf = 1)
     result = {}
     t_accounts.each do |account_name, account|
       result[account_name] = account.balance
@@ -58,7 +58,7 @@ class Wallet
     end
   end
   
-  def getreceivedbyaddress(address)
+  def getreceivedbyaddress(address, minconf = 1)
     account_name = t_addresses[address]
     t_accounts[account_name].addresses[address].balance
   end
